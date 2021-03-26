@@ -22,6 +22,7 @@ session_start();
                 <li><a href="discover.php">about us</a></li>
                 <li><a href="blog.php"> find blogs</a></li>
                 <?php
+                a
                 // check to see if user is logged in
                 if (isset($_SESSION['useruid'])) {
                     // if this exists, it means the user is logged in
