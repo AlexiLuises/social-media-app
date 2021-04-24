@@ -3,6 +3,7 @@
     include_once 'includes/loadPosts.php';
     include_once 'includes/database.php';
     include_once 'includes/functions.php';
+    include_once 'includes/loadComments.php';
 ?>
 
         <section class="index-intro">
@@ -38,12 +39,31 @@
     <section class="feed">
     <?php
     $posts = getPosts($conn);
-    for($i=0; $i < count($posts); $i++){
-    echo '<h1> Post ID: ' . $posts[$i]["userId"] . '</h1>';
-    echo '<br>';
-    echo '<p>'. $posts[$i]["postContent"]. '</p>';
-    echo '<hr>';
+    $comments = getComments($conn);
+
+    for($i = count($posts)-1; $i >= 0; $i--){
+            echo '<h1> name:' .$posts[$i]["userFname"] .'</h1>';
+            echo '<p>'. $posts[$i]["postContent"]. '</p>';
+            echo '<p>'. $posts[$i]["postTags"]. '</p>';
+            echo '<p>'. $posts[$i]["postDate"]. '</p>';
+            echo '<p>'. $posts[$i]["Id"]. '</p>';
+            echo '<section class="comments">';
+            for($h = count($comments)-1; $h >= 0; $h--){
+                if ($comments[$h]["postId"] == $posts[$i]["Id"]) {
+                    echo '<p>user:'.$comments[$h]["userFname"]. '</p>';
+                    echo '<p>comments:' .$comments[$h]["commentContent"].'</p>';
+                }
+
+            }
+            echo '<form action="includes/userComment.php" method="post">';
+            echo '<input type="text" name="commentText" placeholder=" write a comment here!">';
+            echo '<input type="hidden" name="postId" value="'.$posts[$i]["Id"].'">';
+            echo'<button type="submit" placeholder="submit" name="submit">submit</button>';
+            echo '</form>';
+            echo '</section>';
     }
+
+
     ?>
     </section>
 

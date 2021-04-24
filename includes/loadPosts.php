@@ -6,7 +6,7 @@ require 'functions.php';
 
 function getPosts($conn)
     {
-        $sql = "SELECT * FROM posts;";
+        $sql = "SELECT *, userFname FROM posts, users WHERE posts.userId = users.userId;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: .//index.php?error=PostLoadFailed");
@@ -24,5 +24,4 @@ function getPosts($conn)
         return ($postsArray);
         // var_dump($postsArray);
     }
-
 

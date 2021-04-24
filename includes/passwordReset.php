@@ -14,7 +14,7 @@ if (isset($_POST["Password-Reset-Requested"])) {
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
     // . used to include php in url outside of double quotes
-    $url = "http://localhost/login_system/createNewPassword.php?selector=".$selector."&validator=".bin2hex($token);
+    $url = "http://localhost/social-media-app/createNewPassword.php?selector=".$selector."&validator=".bin2hex($token);
 
     // expire the token in half an hour (1800 seconds)
     $expire = date("U") + 1800;

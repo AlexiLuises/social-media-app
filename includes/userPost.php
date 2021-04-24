@@ -13,6 +13,7 @@ if ($_SESSION["login"] == false) {
         $userId = $_SESSION["userid"];
         $content = $_POST["posts"];
         $tags = $_POST["tags"];
+        date_default_timezone_set('GB');
         $postDate = date("D jS M Y H:i");
         echo"<p> $content, $tags, $userId, $postDate </p>";
     }
@@ -36,10 +37,10 @@ if ($_SESSION["login"] == false) {
 
     function getPosts($conn)
     {
-        $sql = "SELECT * FROM posts;";
+        $sql = "SELECT *, userFname FROM posts, users WHERE posts.userId = users.userId;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("location: .//index.php?error=PostLoadFailed");
+            header("location: ../index.php?error=PostLoadFailed");
             exit();
         }
         mysqli_stmt_execute($stmt);
