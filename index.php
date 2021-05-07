@@ -5,7 +5,6 @@
     include_once 'includes/functions.php';
     include_once 'includes/loadComments.php';
 ?>
-
         <section class="index-intro">
             <?php
             if (isset($_SESSION['useruid'])) {
@@ -17,7 +16,7 @@
             if(isset($_GET["error"])){
             if($_GET["error"] == "notLoggedIn"){
             echo "<script language='javascript'>";
-            echo 'alert("Please log in to post something");';
+            echo 'alert("Please log in to use this feature");';
             echo "</script>";
         }
       }
@@ -27,45 +26,49 @@
         </section>
 
         <section class="post">
-            <form action="includes/userPost.php" method="post" id="userPost">
-            <button type="submit" name="submit">Post</button>
-            </form>
+            <form action="includes/userPost.php" method="post" id="userPost" enctype="multipart/form-data">
             <br>
             <textarea rows="5" cols="40" name="posts" form="userPost" placeholder="Whats on your mind?"></textarea>
             <br>
             <textarea rows="2" cols="25" name="tags" form="userPost" placeholder="#tags"></textarea>
+            <br>
+            <input type="file" name="postPicture" id="postPicture">
+            <br>
+            <button type="submit" name="submit">Post</button>
+            </form>
+            <button id="refreshButton">
+            <i class="fas fa-sync" id="spinButton"></i>
+            REFRESH
+            </button>
         </section>
 
     <section class="feed">
+    <div id="content">
     <?php
-    $posts = getPosts($conn);
-    $comments = getComments($conn);
-
-    for($i = count($posts)-1; $i >= 0; $i--){
-            echo '<h1> name:' .$posts[$i]["userFname"] .'</h1>';
-            echo '<p>'. $posts[$i]["postContent"]. '</p>';
-            echo '<p>'. $posts[$i]["postTags"]. '</p>';
-            echo '<p>'. $posts[$i]["postDate"]. '</p>';
-            echo '<p>'. $posts[$i]["Id"]. '</p>';
-            echo '<section class="comments">';
-            for($h = count($comments)-1; $h >= 0; $h--){
-                if ($comments[$h]["postId"] == $posts[$i]["Id"]) {
-                    echo '<p>user:'.$comments[$h]["userFname"]. '</p>';
-                    echo '<p>comments:' .$comments[$h]["commentContent"].'</p>';
-                }
-
-            }
-            echo '<form action="includes/userComment.php" method="post">';
-            echo '<input type="text" name="commentText" placeholder=" write a comment here!">';
-            echo '<input type="hidden" name="postId" value="'.$posts[$i]["Id"].'">';
-            echo'<button type="submit" placeholder="submit" name="submit">submit</button>';
-            echo '</form>';
-            echo '</section>';
-    }
-
-
+    include_once 'includes/displayPost.php';
     ?>
+    </div>
+
+    <script>
+    function loadPosts() {
+        $('#content').load("includes/displayPost.php");
+    }
+    $(document).ready(function(){
+        $('#content').load("includes/displayPost.php");
+    });
+    $("#refreshButton").on('click',function(){
+        $("#spinButton").addClass("fa-spin");
+        setTimeout(function(){
+            // removing class "fa-spin" from #spinButton after 300 ms
+            $("#spinButton").removeClass("fa-spin");
+        },2000);
+        loadPosts();
+    });
+
+
+    </script>
     </section>
+
 
 <?php
     include_once 'footer.php';

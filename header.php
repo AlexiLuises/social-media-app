@@ -11,6 +11,8 @@ session_start();
     <title>PHP project</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
     <nav>
@@ -19,13 +21,11 @@ session_start();
             <a href="index.php"></a>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="discover.php">about us</a></li>
-                <li><a href="blog.php"> find blogs</a></li>
                 <?php
                 // check to see if user is logged in
                 if (isset($_SESSION['useruid'])) {
                     // if this exists, it means the user is logged in
-                    echo "<li><a href='profile.php'>profile Page</a></li>";
+                    echo "<li><a href='profile.php?profileName=".$_SESSION["useruid"]."'>profile Page</a></li>";
                     echo "<li><a href='includes/logout.php'>log out</a></li>";
                 }
                 else {

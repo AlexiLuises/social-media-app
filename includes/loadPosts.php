@@ -1,15 +1,14 @@
 <?php
 
-require 'database.php';
-require 'functions.php';
-
+include_once 'database.php';
+include_once 'functions.php';
 
 function getPosts($conn)
     {
-        $sql = "SELECT *, userFname FROM posts, users WHERE posts.userId = users.userId;";
+        $sql = "SELECT *, userFname, profilePicture FROM posts, users WHERE posts.userId = users.userId;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("location: .//index.php?error=PostLoadFailed");
+            header("location: ./index.php?error=PostLoadFailed");
             exit();
         }
         mysqli_stmt_execute($stmt);
@@ -20,8 +19,9 @@ function getPosts($conn)
             //add posts into the array 1 by 1 until its done
             $postsArray[] = $postlist;
         }
+        // var_dump($postsArray);
         mysqli_stmt_close($stmt);
         return ($postsArray);
-        // var_dump($postsArray);
+
     }
 

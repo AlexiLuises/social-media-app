@@ -5,7 +5,7 @@
         <section class="Password-Reset-form">
         <h2>Password Reset</h2>
         <p>You will be emailed instructions on how you can reset your password</p>
-        <form action="includes/passwordReset.php" method="post">
+        <form action="/includes/passwordReset.php" method="post">
         <input type="text" name="email" placeholder="Enter email">
         <button type="submit" name="Password-Reset-Requested">Reset password via Email</button>
         </form>

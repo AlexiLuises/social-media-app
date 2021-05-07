@@ -5,7 +5,7 @@ require 'functions.php';
 
 
 if ($_SESSION["login"] == false) {
-    header("location: ../index.php?error=notLoggedIn");
+    header("location: ./index.php?error=notLoggedIn");
     exit();
 }
 
