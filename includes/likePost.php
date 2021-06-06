@@ -31,6 +31,7 @@ function checkLikedStatus($conn, $postId, $userName)
     mysqli_stmt_execute($stmt);
     $resultData = mysqli_stmt_get_result($stmt);
     //associative array, doesnt use index numbers but rather column names
+    // returns binary/true or false depending on if the post is liked
     if ($row = mysqli_fetch_assoc($resultData)) {
         $result = 1;
     } else {
@@ -86,6 +87,7 @@ function unlikePost($conn, $postId, $userName)
 }
 
 // if statement to check if the user has already liked, if not, send a like to the database
+// takes data from checkedLikedStatus to see if liked = true or not
 if (!checkLikedStatus($conn, $postId, $userName)) {
     likePost($conn, $postId, $userName);
 } else {

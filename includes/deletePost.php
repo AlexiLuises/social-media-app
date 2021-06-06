@@ -15,7 +15,7 @@ if ($_SESSION["login"] == false) {
 
 $postId = $_POST["postId"];
 
-// function to delete a specific post
+// function to delete a specific post based on ID of post
 function deletePost($conn, $postId)
 {
     // ? placeholders for first name, last name and userId

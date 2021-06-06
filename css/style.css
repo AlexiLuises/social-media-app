@@ -1,7 +1,7 @@
 /* background of website */
 
 body {
-    background-color: aqua;
+    background-color: lightskyblue;
 }
 
 
@@ -65,6 +65,13 @@ p {
     margin-right: auto;
 }
 
+.Password-Reset-form {
+    max-width: 90%;
+    background-color: beige;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 /* padding for form entries */
 
@@ -83,8 +90,8 @@ p {
 
 /* navbar styling */
 
-.navigation {
-    background-color: gray;
+.navbar {
+    background-color: darkslateblue;
 }
 
 .navigation ul {
@@ -115,6 +122,10 @@ p {
     flex-basis: auto;
 }
 
+.navbar a {
+    color: white;
+}
+
 
 /* styling for main post and tags */
 
@@ -140,7 +151,9 @@ textarea {
 }
 
 
-/* styling for main content container */
+/* styling for main content container
+ allows card to stay at 75% screen width but go up to 700px
+in case of a very big screen */
 
 .card {
     width: 75% !important;
@@ -167,6 +180,10 @@ textarea {
 /* making the image have a reasonable image ratio */
 
 .fit-container {
+    object-fit: cover;
+}
+
+.pfp {
     object-fit: cover;
 }
 

@@ -13,17 +13,20 @@ $posts = getPosts($conn);
 $comments = getComments($conn);
 echo '<br>';
 
-// looping through the posts in the database
+// looping through the posts gotten from the getPosts function
 for ($i = count($posts) - 1; $i >= 0; $i--) {
     // Bulma Card space for name/profile picture/date
     echo '<div class="card">';
     echo '<div class="card-content">';
     echo '<div class="media">';
     echo '<div class="media-left">';
+    // lays out the size of image and how it looks (is-rounded = circle frame)
     echo '<figure class="image is-64x64 is-1by1">';
+    // get the image within this loops post array
     echo '<img class= "is-rounded fit-container" src="' . $posts[$i]["profilePicture"] . '">';
     echo '</figure>';
     echo '</div>';
+    // Output name and postdate of content
     echo '<div class="media-content">';
     echo '<p class="username"> <strong> <a href="profile.php?profileName=' . $posts[$i]["userUid"] . '">' . $posts[$i]["userFname"] . '</a></strong></p>';
     echo '<p>' . $posts[$i]["postDate"] . '</p>';
@@ -83,7 +86,8 @@ for ($i = count($posts) - 1; $i >= 0; $i--) {
         echo '</button>';
     }
     echo '</footer>';
-    // bulma field for comment text submission box
+
+    // bulma field/form for comment text submission box
     // linked to userComment.php file
     echo '<br>';
     echo '<div class="field">';
@@ -98,7 +102,7 @@ for ($i = count($posts) - 1; $i >= 0; $i--) {
     // Comment section, loop through comments assoc array
     echo '<div class="comments">';
     for ($h = count($comments) - 1; $h >= 0; $h--) {
-        // if posyID of comment is the same as postID of the post, show content
+        // if postID of comment is the same as postID of the post, show content
         if ($comments[$h]["postId"] == $posts[$i]["Id"]) {
             echo '<article class="media">';
             echo '<figure class="media-left">';

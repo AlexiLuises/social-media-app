@@ -2,7 +2,9 @@
 require 'header.php';
 ?>
 <!-- Page to reset your password -->
+<br> <br>
 <section class="Password-Reset-form">
+    <P>Please reset your password here</P>
     <?php
     // takes selector/validator from url (found line 9 passwordReset.php)
     $selector = $_GET["selector"];

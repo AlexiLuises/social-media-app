@@ -3,7 +3,7 @@
 include_once 'database.php';
 include_once 'functions.php';
 
-// takes nessecairy data for post functionality
+// takes required data for post functionality
 function getPosts($conn)
 {
     $sql = "SELECT *, userFname, profilePicture FROM posts, users WHERE posts.userId = users.userId;";

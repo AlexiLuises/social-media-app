@@ -19,7 +19,7 @@ echo '</div>';
 echo '<div class="card-content">';
 echo '<div class="media">';
 echo '<div class="media-left">';
-echo '<figure class="image is-96x96">';
+echo '<figure class="image is-96x96 is-1by1">';
 echo "<img class='pfp is-rounded' src=" . $userData["0"]["profilePicture"] . ">";
 echo '</figure>';
 echo '</div>';
@@ -29,9 +29,6 @@ echo '</div>';
 echo '</div>';
 echo '';
 echo '<div class="content">';
-echo 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-echo 'Phasellus nec iaculis mauris. <a>@bulmaio</a>.';
-echo '<br>';
 echo '<time datetime="YYYY-MM-DD">' . $userData["0"]["creationDate"] . '</time>';
 echo '</div>';
 echo '</div>';
@@ -165,7 +162,7 @@ for ($i = count($posts) - 1; $i >= 0; $i--) {
 
 
 // scripts to like,edit and delete things
-// same code as in displayPost.php, go there for better explanation
+// same code as in includes/displayPost.php, go there for better explanation
 echo '<script>';
 echo '$(".likeButton").on("click",function(){';
 echo 'console.log("Post Liked: " + $(this).attr("id"));';

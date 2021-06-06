@@ -65,11 +65,30 @@ if (isset($_POST["submit"])) {
         $target_dir = "../photos/";
         $newPostPicture = $target_dir . basename($_FILES["postPicture"]["name"]);
         $uploadOk = 1;
+        // path parts breaks the path of the picture into different sections
+        $path_parts = pathinfo($newPostPicture);
+        // this gets just the extention of the path
+        $extention = $path_parts['extension'];
+
+        // renames file with a number at the end depending on how many times the name already exists
+        if (file_exists($newPostPicture)) {
+            $imageCount = 0; // initialize file count.
+
+            // runs loop increasing image counter and appending to filename until untaken filename is found.
+            // ends up doing img12.jpg instead of img2.jpg but this works
+            do {
+                $imageCount++;
+                // makes a new name without extention using path parts filename
+                $newName = $path_parts['filename'] .= "$imageCount";
+                // adds target directory, new name with number, and the extention to profile picture
+                $newPostPicture = $target_dir . $newName . '.' . $extention;
+            } while (file_exists($newPostPicture));
+        }
 
         $imageFileType = strtolower(pathinfo($newPostPicture, PATHINFO_EXTENSION));
         $check = getimagesize($_FILES["postPicture"]["tmp_name"]);
         if ($check !== false) {
-            // echo "File is an image - " . $check["mime"] . ".";
+            echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
             echo "File is not an image.";

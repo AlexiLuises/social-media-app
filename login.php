@@ -10,7 +10,7 @@ include_once 'header.php';
         <form action="includes/loginValidate.php" method="post">
             <label class="label">Username</label>
             <div class="control has-icons-left has-icons-right">
-                <input class="input is-small" type="text" name="uid" placeholder="Username/email">
+                <input class="input is-small" type="text" name="uid" placeholder="Username/email/phone number">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>

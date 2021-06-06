@@ -72,13 +72,6 @@ if ($_SESSION['useruid'] == $profileName) {
         function loadPosts() {
             $('#content').load("includes/displayProfilePost.php?profileName=<?php echo $_GET["profileName"] ?>");
         }
-        $(document).ready(function() {
-            $('#content').load("includes/displayProfilePost.php?profileName=<?php echo $_GET["profileName"] ?>");
-            $('.image-link').magnificPopup({
-                type: 'image'
-            });
-        });
-
         $("#refreshButton").on('click', function() {
             $("#spinButton").addClass("fa-spin");
             setTimeout(function() {

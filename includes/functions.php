@@ -154,13 +154,13 @@ function loginUser($conn, $username, $pwd)
     $pwdHashed = $uidExists["userPwd"];
     // if password given and hashed pwd match, returns true, if they dont, returns false
     $checkPwd = password_verify($pwd, $pwdHashed);
-
+    // if password is false, brings the user back to login.php
     if ($checkPwd === false) {
         header("Location: ../login.php?error=wronglogin");
         exit();
     } else if ($checkPwd === true) {
         session_start();
-        // starts a session if login succesful
+        // starts a session if login succesful and asigns userID and userUID as session variables
         $_SESSION["userid"] = $uidExists["userId"];
         $_SESSION["useruid"] = $uidExists["userUid"];
         header("Location: ../index.php");
