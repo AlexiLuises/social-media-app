@@ -1,5 +1,5 @@
 <?php
-
+// password resetting functionality using phpmailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -13,37 +13,34 @@ if (isset($_POST["Password-Reset-Requested"])) {
     // creating two tokens to restrict timing attacks (brute force attacks)
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
-    // . used to include php in url outside of double quotes
-    $url = "http://localhost/createNewPassword.php?selector=".$selector."&validator=".bin2hex($token);
+    $url = "http://localhost/createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token);
 
     // expire the token in half an hour (1800 seconds)
     $expire = date("U") + 1800;
     $userEmail = $_POST["email"];
 
-    // ? is for prepared statement ($stmt)
     // this deletes any existing token from the user so they do not have multiple
     $sql = "DELETE FROM passwordreset WHERE pwdResetEmail=?;";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt,$sql)) {
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
         echo "Error has occured";
         exit();
-    }
-    else{
+    } else {
         // says what the ? (prepared statement) will be replaced with by the user
-        mysqli_stmt_bind_param($stmt,"s", $userEmail);
+        mysqli_stmt_bind_param($stmt, "s", $userEmail);
         mysqli_stmt_execute($stmt);
     }
 
+    // insert all given and made values into passwordreset table
     $sql = "INSERT INTO  passwordreset (pwdResetEmail,pwdResetSelector,pwdResetToken,PwdResetExpire) VALUES (?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt,$sql)) {
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
         echo "Error has occured";
         exit();
-    }
-    else{
-
+    } else {
+        // hash tokens
         $hashedToken = password_hash($token, PASSWORD_DEFAULT);
-        mysqli_stmt_bind_param($stmt,"ssss", $userEmail,$selector,$hashedToken,$expire);
+        mysqli_stmt_bind_param($stmt, "ssss", $userEmail, $selector, $hashedToken, $expire);
         mysqli_stmt_execute($stmt);
     }
 
@@ -51,15 +48,17 @@ if (isset($_POST["Password-Reset-Requested"])) {
     mysqli_close($conn);
 
 
-
+    // setting up what will be sent/contained in email sent to user
     $recipient = $userEmail;
     $subject = 'password reset for social media site';
     $emailMessage = '<p>A password reset request was received, click the link to reset your password.<br>If you did not make this request, ignore this email<br>
     Password Reset Link: <br>';
-    $emailMessage .= '<a href="'.$url.'">'.$url.'</a></p>';
+    $emailMessage .= '<a href="' . $url . '">' . $url . '</a></p>';
 
     // use PHPMailer to send the email
-    function sendEmail($recipient, $subject, $emailMessage){
+    // for now this will just be sent to my mailtrap
+    function sendEmail($recipient, $subject, $emailMessage)
+    {
         $mail = new PHPMailer();
 
         try {
@@ -84,13 +83,11 @@ if (isset($_POST["Password-Reset-Requested"])) {
 
             $mail->send();
             header("Location: ../resetPassword.php?resetrequest=success");
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
-    sendEmail($recipient,$subject,$emailMessage);
-}
-else {
+    sendEmail($recipient, $subject, $emailMessage);
+} else {
     header("Location: ../index.php");
 }

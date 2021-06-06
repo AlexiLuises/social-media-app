@@ -1,37 +1,236 @@
-body{
+/* background of website */
+
+body {
     background-color: aqua;
 }
 
-.wrapper{
-    width: 900px;
-    margin: 0 auto;
-    text-align: center;
+
+/* makes nav bar stay on top of screen and show over other items on the website */
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
-h1,h2,h3,h4,h5,h6,p{
-    font-family: 'Roboto',sans-serif;
+
+/* wrapper is entire document, 95vh to make it a full page for my login pages that do not have much content */
+
+.wrapper {
+    margin: 0 auto;
+    text-align: center;
+    min-height: 95vh;
+}
+
+
+/* choosing font family */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-family: 'Roboto', sans-serif;
     color: #111;
     line-height: 24px;
 }
 
-.navigation{
-    background-color:gray;
+
+/* just incase someone spams non-word's in the post boxes */
+
+p {
+    word-break: break-all;
 }
 
-.navigation ul{
+
+/* styling of login form */
+
+.login-form {
+    max-width: 90%;
+    background-color: beige;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* styling of signup form */
+
+.signup-form {
+    max-width: 90%;
+    background-color: beige;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* padding for form entries */
+
+.control {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+/* padding for icons in form */
+
+.icon {
+    padding-left: 10px;
+}
+
+
+/* navbar styling */
+
+.navigation {
+    background-color: gray;
+}
+
+.navigation ul {
     display: flex;
     justify-content: center;
     flex-direction: row;
 }
-.navigation li{
+
+.navigation li {
     margin: 0px 35px 0px 35px;
 }
-.index-categories{
-    padding-top: 30px;
+
+
+/* BULMA OVERRIDES */
+
+
+/* makes navbar items spread out evenly for mobile */
+
+.navbar {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.navbar-start {
+    display: flex;
+    align-items: center;
+    flex-basis: auto;
 }
 
 
+/* styling for main post and tags */
 
+.user-post {
+    border: 4px solid;
+    border-color: black;
+}
+
+
+/* width of comment boxes and other input fields */
+
+textarea {
+    max-width: 96%;
+}
+
+
+/* allows mulitple tags on one line */
+
+.tagContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+
+/* styling for main content container */
+
+.card {
+    width: 75% !important;
+    max-width: 700px !important;
+}
+
+
+/* aligning username to left side of card */
+
+.username {
+    text-align: left;
+}
+
+
+/* styling for pictures */
+
+.posted-picture {
+    max-width: 700px;
+    max-height: 700px;
+    margin: 0 auto;
+}
+
+
+/* making the image have a reasonable image ratio */
+
+.fit-container {
+    object-fit: cover;
+}
+
+
+/* allows centering of objects easily */
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* styling of the post comment box */
+
+.post-comment-box {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* padding to section of card with profile picture and username */
+
+.card .media {
+    margin-top: 0.1rem;
+    padding: 0.1rem;
+    text-align: start;
+}
+
+
+/* sizing of media */
+
+.media {
+    width: 100%;
+}
+
+
+/* overrides bulma class to have a small margin bottom */
+
+.card .media:not(:last-child) {
+    margin-bottom: 0.1rem;
+}
+
+
+/* styling for comments */
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+/* overriding margin bottom for comment text */
+
+.content p {
+    margin-bottom: 0.2em !important;
+}
+
+
+/* overrides cards defaults to make card larger when using small phone screen */
+
+@media screen and (max-width: 440px) {
+    .card {
+        width: 100% !important;
+    }
+}

@@ -1,8 +1,8 @@
 <?php
+// page to get all information when reset password request is made
 
-
+// taken post's from form in createNewPassword.php
 if (isset($_POST["password-reset-submition"])) {
-    // taken post's from form in createNewPassword.php
     $selector = $_POST["selector"];
     $validator = $_POST["validator"];
     $password = $_POST["password"];
@@ -99,5 +99,3 @@ if (isset($_POST["password-reset-submition"])) {
 else {
     header("Location: ../index.php");
 }
-
-?>
